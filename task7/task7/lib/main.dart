@@ -24,6 +24,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHome extends StatelessWidget {
+  final RandomColor randomColor = RandomColor();
+  final random = Random();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,11 +60,10 @@ class MyHome extends StatelessWidget {
                     leading: Icon(
                       Icons.favorite,
                       size: 40,
-                      color:
-                          RandomColor().randomColor(colorHue: ColorHue.random),
+                      color: randomColor.randomColor(colorHue: ColorHue.random),
                     ),
                     title: Text(
-                      "${Random().nextInt(20)}  ${Faker().lorem.sentence().padLeft(10)}",
+                      "${random.nextInt(20)}  ${Faker().lorem.sentence().padLeft(10)}",
                       maxLines: 1,
                     ),
                     subtitle: Text(
@@ -76,11 +77,11 @@ class MyHome extends StatelessWidget {
                       leading: Icon(
                         Icons.music_note,
                         size: 40,
-                        color: RandomColor()
-                            .randomColor(colorHue: ColorHue.random),
+                        color:
+                            randomColor.randomColor(colorHue: ColorHue.random),
                       ),
                       title: Text(
-                        "${Random().nextInt(20)}  ${Faker().lorem.sentence().padLeft(10)}",
+                        "${random.nextInt(20)}  ${Faker().lorem.sentence().padLeft(10)}",
                         maxLines: 1,
                       ),
                       subtitle: Text("by ${Faker().person.name()}",
@@ -92,11 +93,10 @@ class MyHome extends StatelessWidget {
                     leading: Icon(
                       Icons.play_circle_filled,
                       size: 40,
-                      color:
-                          RandomColor().randomColor(colorHue: ColorHue.random),
+                      color: randomColor.randomColor(colorHue: ColorHue.random),
                     ),
                     title: Text(
-                      "${Random().nextInt(20)}  ${Faker().lorem.sentence().padLeft(10)}",
+                      "${random.nextInt(20)}  ${Faker().lorem.sentence().padLeft(10)}",
                       maxLines: 1,
                     ),
                     subtitle: Text("by ${Faker().person.name()}",
