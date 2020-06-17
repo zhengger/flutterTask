@@ -31,7 +31,7 @@ class MyHome extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           title: Row(
             children: [
-              Text("Flute Music Player", style: TextStyle(fontSize: 20)),
+              Text("Flute Music Player", style: TextStyle(fontSize: 18)),
               SizedBox(
                 width: 80,
               ),
@@ -49,47 +49,58 @@ class MyHome extends StatelessWidget {
       body: Container(
         color: Theme.of(context).accentColor,
         child: ListView.builder(
+            padding: EdgeInsets.symmetric(vertical: 20),
             itemCount: 15,
             itemBuilder: (context, index) {
               switch (index) {
                 case 0:
                   return ListTile(
                     leading: Icon(
-                      Icons.android,
-                      size: 50,
+                      Icons.favorite,
+                      size: 40,
                       color:
                           RandomColor().randomColor(colorHue: ColorHue.random),
                     ),
                     title: Text(
-                        "${Random().nextInt(20)}  ${Faker().lorem.sentence().padLeft(10)}"),
-                    subtitle: Text("by ${Faker().person.name()}"),
+                      "${Random().nextInt(20)}  ${Faker().lorem.sentence().padLeft(10)}",
+                      maxLines: 1,
+                    ),
+                    subtitle: Text(
+                      "by ${Faker().person.name()}",
+                      style: TextStyle(fontSize: 10),
+                    ),
                   );
                   break;
                 case 1:
                   return ListTile(
-                    leading: Icon(
-                      Icons.add_shopping_cart,
-                      size: 50,
-                      color:
-                          RandomColor().randomColor(colorHue: ColorHue.random),
-                    ),
-                    title: Text(
-                        "${Random().nextInt(20)}  ${Faker().lorem.sentence().padLeft(10)}"),
-                    subtitle: Text("by ${Faker().person.name()}"),
-                  );
+                      leading: Icon(
+                        Icons.music_note,
+                        size: 40,
+                        color: RandomColor()
+                            .randomColor(colorHue: ColorHue.random),
+                      ),
+                      title: Text(
+                        "${Random().nextInt(20)}  ${Faker().lorem.sentence().padLeft(10)}",
+                        maxLines: 1,
+                      ),
+                      subtitle: Text("by ${Faker().person.name()}",
+                          style: TextStyle(fontSize: 10)));
 
                   break;
                 default:
                   return ListTile(
                     leading: Icon(
                       Icons.play_circle_filled,
-                      size: 50,
+                      size: 40,
                       color:
                           RandomColor().randomColor(colorHue: ColorHue.random),
                     ),
                     title: Text(
-                        "${Random().nextInt(20)}  ${Faker().lorem.sentence().padLeft(10)}"),
-                    subtitle: Text("by ${Faker().person.name()}"),
+                      "${Random().nextInt(20)}  ${Faker().lorem.sentence().padLeft(10)}",
+                      maxLines: 1,
+                    ),
+                    subtitle: Text("by ${Faker().person.name()}",
+                        style: TextStyle(fontSize: 10)),
                   );
               }
             }),
