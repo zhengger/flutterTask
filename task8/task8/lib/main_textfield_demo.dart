@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -17,13 +16,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: TextFieldDemo(),
     );
   }
 }
-
 
 class TextFieldDemo extends StatelessWidget {
   @override
@@ -128,9 +126,9 @@ class TextFormFieldDemoState extends State<TextFormFieldDemo> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<FormFieldState<String>> _passwordFieldKey =
-  GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   final _UsNumberTextInputFormatter _phoneNumberFormatter =
-  _UsNumberTextInputFormatter();
+      _UsNumberTextInputFormatter();
 
   void _handleSubmitted() {
     final form = _formKey.currentState;
@@ -200,8 +198,7 @@ class TextFormFieldDemoState extends State<TextFormFieldDemo> {
                     filled: true,
                     icon: Icon(Icons.person),
                     hintText: "demoTextFieldWhatDoPeopleCallYou",
-                    labelText:
-                    "demoTextFieldNameField",
+                    labelText: "demoTextFieldNameField",
                   ),
                   onSaved: (value) {
                     person.name = value;
@@ -215,7 +212,7 @@ class TextFormFieldDemoState extends State<TextFormFieldDemo> {
                     filled: true,
                     icon: Icon(Icons.phone),
                     hintText: "demoTextFieldWhereCanWeReachYou",
-                    labelText:"demoTextFieldPhoneNumber",
+                    labelText: "demoTextFieldPhoneNumber",
                     prefixText: '+1 ',
                   ),
                   keyboardType: TextInputType.phone,
@@ -239,8 +236,7 @@ class TextFormFieldDemoState extends State<TextFormFieldDemo> {
                     filled: true,
                     icon: Icon(Icons.email),
                     hintText: "demoTextFieldYourEmailAddress",
-                    labelText:
-                    "demoTextFieldEmail",
+                    labelText: "demoTextFieldEmail",
                   ),
                   keyboardType: TextInputType.emailAddress,
                   onSaved: (value) {
@@ -254,8 +250,7 @@ class TextFormFieldDemoState extends State<TextFormFieldDemo> {
                     border: OutlineInputBorder(),
                     hintText: "demoTextFieldTellUsAboutYourself",
                     helperText: "demoTextFieldKeepItShort",
-                    labelText:
-                    "demoTextFieldLifeStory",
+                    labelText: "demoTextFieldLifeStory",
                   ),
                   maxLines: 3,
                 ),
@@ -265,20 +260,16 @@ class TextFormFieldDemoState extends State<TextFormFieldDemo> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText:
-                    "demoTextFieldSalary",
-                    suffixText:
-                    "demoTextFieldUSD",
+                    labelText: "demoTextFieldSalary",
+                    suffixText: "demoTextFieldUSD",
                   ),
                   maxLines: 1,
                 ),
                 sizedBoxSpace,
                 PasswordField(
                   fieldKey: _passwordFieldKey,
-                  helperText:
-                  "demoTextFieldNoMoreThan",
-                  labelText:
-                  "demoTextFieldPassword",
+                  helperText: "demoTextFieldNoMoreThan",
+                  labelText: "demoTextFieldPassword",
                   onFieldSubmitted: (value) {
                     setState(() {
                       person.password = value;
@@ -299,8 +290,7 @@ class TextFormFieldDemoState extends State<TextFormFieldDemo> {
                 sizedBoxSpace,
                 Center(
                   child: RaisedButton(
-                    child: Text(
-                        "demoTextFieldSubmit"),
+                    child: Text("demoTextFieldSubmit"),
                     onPressed: _handleSubmitted,
                   ),
                 ),
@@ -323,9 +313,9 @@ class TextFormFieldDemoState extends State<TextFormFieldDemo> {
 class _UsNumberTextInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue,
-      TextEditingValue newValue,
-      ) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     final newTextLength = newValue.text.length;
     final newText = StringBuffer();
     int selectionIndex = newValue.selection.end;
@@ -356,4 +346,3 @@ class _UsNumberTextInputFormatter extends TextInputFormatter {
     );
   }
 }
-
