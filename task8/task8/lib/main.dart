@@ -1,3 +1,17 @@
+/*
+Task8:
+在本节登录例子的基础上进行以下功能扩展：
+1. 预先设定一对有效的用户名和密码，
+2. 当输入账号和密码连续三次错误时，提示用户登录锁定，
+3. 同时将登录按钮变灰，不能使用，并在
+4. 登录按钮上显示倒计时 60 秒的动态效果，倒计时结束后方可再次登录验证。
+提示：输入信息保存可以考虑使用 onSaved，倒计时使用 Timer.periodic。
+
+链接：https://juejin.im/post/5e4fa3c051882549265caa19
+来源：掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+ */
 import 'package:flutter/material.dart';
 import 'package:task8/personalData.dart';
 import 'dart:async';
@@ -63,7 +77,6 @@ class _PasswordFieldState extends State<PasswordField> {
       cursorColor: Theme.of(context).cursorColor,
       maxLength: 8,
       validator: widget.validator,
-      //TODO onSaved
       onSaved: (newValue) {},
       decoration: InputDecoration(
         filled: true,
@@ -90,8 +103,8 @@ class LoginFormState extends State<LoginForm> {
   final PersonalData personalData =
       PersonalData(name: "hello", password: "123456");
   static const period = Duration(seconds: 1);
+  Timer _timer;
   int _ticker = 60;
-
   int _counter = 3;
 
   void showInSnackBar(String value) {
@@ -105,24 +118,21 @@ class LoginFormState extends State<LoginForm> {
     final form = _formKey.currentState;
     if (!form.validate()) {
       _autoValidate = true;
-
       setState(() {
         _counter--;
-        // _ticker = 5-timer.tick;
-        print(_ticker);
       });
       // Start validating on every change.
       showInSnackBar(
-        "登录前请先修复红色提示错误! 您还有$_counter次机会",
+        "登录前请先修复红色提示错误! 您还有${_counter > 0 ? _counter : 0}次机会",
       );
       if (_counter <= 0) {
-        Timer.periodic(period, (timer) {
+        _timer = Timer.periodic(period, (timer) {
           //到时回调
           print('afterTimer=' + DateTime.now().toString());
           setState(() {
             _ticker--;
           });
-          if (_ticker == 0) {
+          if (_ticker <= 0) {
             //取消定时器，避免无限回调
             timer.cancel();
             timer = null;
@@ -198,7 +208,7 @@ class LoginFormState extends State<LoginForm> {
                       color: _counter > 0 ? Colors.blue : Colors.grey,
                       textColor: Colors.white,
                       child: _counter > 0 ? Text("登录") : Text("$_ticker"),
-                      onPressed: _handleSubmitted,
+                      onPressed:_counter > 0 ? debounce(_handleSubmitted) : (){},
                     ),
                   ),
                 ),
@@ -208,5 +218,28 @@ class LoginFormState extends State<LoginForm> {
         ),
       ),
     );
+  }
+
+  //TODO 防止重复点击
+  Function debounce(Function fn, [int t = 1500]) {
+    ///防止重复点击导致倒计时失效
+    Timer _debounce;
+    return () {
+      // 还在时间之内，抛弃上一次
+      if (_debounce?.isActive ?? false) _debounce.cancel();
+
+      _debounce = Timer(Duration(milliseconds: t), () {
+        fn();
+      });
+    };
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_timer != null) {
+      _timer.cancel();
+      _timer = null;
+    }
   }
 }
